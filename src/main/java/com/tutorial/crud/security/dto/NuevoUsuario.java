@@ -1,33 +1,25 @@
 package com.tutorial.crud.security.dto;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 public class NuevoUsuario {
     @NotBlank
     private String nombre;
-    
     @NotBlank
     private String nombreUsuario;
-    
     @Email
     private String email;
-    
     @NotBlank
     private String password;
     private Set<String> roles = new HashSet<>();
 
-    
-    public NuevoUsuario() {
-    }
-
     public String getNombre() {
         return nombre;
     }
-    
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -63,6 +55,4 @@ public class NuevoUsuario {
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
-
-    
 }
