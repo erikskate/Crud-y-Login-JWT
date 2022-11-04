@@ -10,6 +10,9 @@ import com.tutorial.crud.security.enums.RolNombre;
 import com.tutorial.crud.security.jwt.JwtProvider;
 import com.tutorial.crud.security.service.RolService;
 import com.tutorial.crud.security.service.UsuarioService;
+
+import io.jsonwebtoken.Jwt;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,5 +80,13 @@ public class AuthController {
         String jwt = jwtProvider.generateToken(authentication);
         JwtDto jwtDto = new JwtDto(jwt);
         return new ResponseEntity(jwtDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtDto> refresh(@RequestBody JwtDto jwtDto) throws ParseException{
+        String token = jwtProvider.refreshToken(jwtDto);
+        JwtDto jwt = new JwtDto(token);
+
+        return new ResponseEntity<JwtDto>(jwt,HttpStatus.OK);
     }
 }
